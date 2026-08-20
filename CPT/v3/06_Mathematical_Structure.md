@@ -1,163 +1,218 @@
-# The Mathematical Structure of Configuration Propagation Theory
+# Mathematical Model — Configuration Propagation Theory
 
-*Eldhose Mani — Draft v3, August 2026*
-*Part of the Configuration Propagation Theory series*
+## Level 1: Configuration Space
 
----
+The configuration Hilbert space:
 
-## Abstract
+```
+H = span_ℂ{|v⟩ : v ∈ C}    (closure)
+```
 
-We develop the formal mathematical framework of Configuration Propagation Theory (CPT). The configuration space is a complex separable Hilbert space H, forced by the complex-linearity of the propagation function c(). The propagation operator Ĉ and transformation operator T̂ are defined precisely; bijectivity of t() uniquely implies unitarity of T̂ on H. The fixed-point equation v₀ = T̂·Ĉ(v₀) is shown to be equivalent to the ground-state eigenvalue equation Ĥ|v₀⟩ = E₀|v₀⟩ via Stone's theorem. The requirement that the Hamiltonian Ĥ be invariant under the derived symmetry group G = Poincaré × U(1) × SU(2) × SU(3) and renormalizable uniquely selects the Standard Model Lagrangian. The von Neumann entropy formula S = −Tr[ρ ln ρ] is shown to be the unique function satisfying four algebraically necessary properties of the CPT propagation structure. The paper also establishes the boundary structure (Hubble horizon as soft boundary) and derives quantum tunneling as the natural leakage of c() beyond the horizon. All derivations from the two CPT axioms are explicitly labelled; external mathematical theorems used (Stone, Zeeman, uniqueness of von Neumann entropy) are cited.
-
----
-
-## 1. Introduction
-
-Paper 01 of this series stated the two CPT axioms and gave an overview of what follows from them. This paper develops the mathematical formalism in full, establishing the Hilbert space structure, the operator algebra, and the fixed-point equation in rigorous terms. Paper 07 applies this formalism to derive the physical laws.
+Configurations form basis states. Their complex superpositions form the full quantum state space. This IS the quantum Hilbert space — not assumed, follows from `c()` being complex-valued.
 
 ---
 
-## 2. Configuration Space
+## Level 2: The Core Operators
 
-**Definition 2.1.** The configuration Hilbert space is:
+### The Propagation Operator
 
-$$\mathcal{H} = \overline{\text{span}_\mathbb{C}\{|v\rangle : v \in C\}}$$
+```
+Ĉ: H → H ⊗ H
+Ĉ|v⟩ = Σ_{v'∈C} α_{vv'} |v⟩ ⊗ |v'⟩
+```
 
-Configurations $v \in C$ form an orthonormal basis. Their complex superpositions form the full quantum state space. This is the quantum Hilbert space — not an assumption, but a consequence of Axiom 1 (c() is complex-valued and linear).
+This is a **quantum channel** — maps one node to a superposition of (parent, child) pairs.
 
-**Remark.** In standard quantum mechanics, the Hilbert space structure is postulated. In CPT, it is derived: since c() assigns complex amplitudes, and since states that differ only in global phase are physically equivalent (as probabilities depend only on |α|²), the set of physically distinct states carries exactly the structure of a complex Hilbert space.
+- `α_{vv'} ∈ ℂ`: complex amplitude for propagation from `v` to `v'`
+- `|α_{vv'}|²`: probability of propagation to `v'`
+- Non-local: `v'` need not be spatially adjacent — edges are dynamically generated
+- The tensor product `H ⊗ H` is forced by `c()` being **generative** (creates new nodes while source persists)
 
----
+### The Transformation Operator
 
-## 3. The Core Operators
+```
+T̂: H → H,    T̂†T̂ = 𝟙
+```
 
-### 3.1 The Propagation Operator Ĉ
+Unitary. Follows necessarily from `t()` being bijective (no information erasure) on complex Hilbert space. The bijective constraint in complex space = unitary — no other choice exists.
 
-$$\hat{C} : \mathcal{H} \to \mathcal{H} \otimes \mathcal{H}$$
+### Global Evolution (one Planck step)
 
-$$\hat{C}|v\rangle = \sum_{v' \in C} \alpha_{vv'}\, |v\rangle \otimes |v'\rangle$$
-
-where $\alpha_{vv'} \in \mathbb{C}$ is the complex amplitude for propagation from configuration v to configuration v'.
-
-**Properties:**
-- $|\alpha_{vv'}|^2$ is the probability for configuration v to propagate to v'
-- Non-local: v' need not be spatially adjacent; edges are dynamically generated
-- Normalization: $\sum_{v'} |\alpha_{vv'}|^2 = 1$ for each v (probability-preserving)
-- The tensor product $\mathcal{H} \otimes \mathcal{H}$ is forced because c() is generative — the source configuration v persists while v' is created
-
-### 3.2 The Transformation Operator T̂
-
-$$\hat{T} : \mathcal{H} \to \mathcal{H}, \qquad \hat{T}^\dagger \hat{T} = \mathbb{1}$$
-
-T̂ is unitary. This follows necessarily from Axiom 2:
-
-**Theorem 3.1 (Bijection implies unitarity — ✓ Theorem).** *If t : H → H is bijective and linear over ℂ, then t is unitary (i.e., T̂†T̂ = 𝟙).*
-
-*Proof.* Bijectivity means t has an inverse t⁻¹. Linearity over ℂ means T̂ is a linear operator. For a linear bijection on a complex Hilbert space, preservation of inner products (= no information loss) implies unitarity. Conversely, unitarity implies bijectivity. The two conditions are equivalent for linear operators on complex Hilbert space. □
-
-### 3.3 Global Evolution
-
-One Planck step of global evolution:
-
-$$|\Psi(n+1)\rangle = \hat{T} \cdot \hat{C}\,|\Psi(n)\rangle$$
-
-In the continuum limit (many Planck steps per macroscopic time interval), with $\hat{T} = e^{-i\hat{H}\delta t/\hbar}$ (from Stone's theorem, proved in Paper 01):
-
-$$i\hbar \frac{\partial}{\partial t}|\Psi\rangle = \hat{H}|\Psi\rangle \qquad \text{(Schrödinger equation)}$$
+```
+|Ψ(n+1)⟩ = T̂ · Ĉ |Ψ(n)⟩
+```
 
 ---
 
-## 4. The Fixed-Point Equation and the Ground State
+## Level 3: The Fixed-Point Equation
 
-The ground state satisfies the self-consistency condition:
+The self-referential structure requires the seed to satisfy:
 
-$$v_0 = \hat{T} \cdot \hat{C}(v_0)$$
+```
+v₀ = T̂ · Ĉ(v₀)
+```
 
-**Theorem 4.1 (Fixed-point = ground state — ✓ Theorem).** *The fixed-point equation v₀ = T̂·Ĉ(v₀) is equivalent to Ĥ|v₀⟩ = E₀|v₀⟩.*
+**Derivation that this equals the ground state equation:**
 
-*Proof.* From Stone's theorem: T̂ = e^{-iĤδt/ℏ} for a unique self-adjoint Ĥ. The fixed-point condition becomes:
+Since `T̂ = e^{-iĤδt/ℏ}` for some self-adjoint `Ĥ` (Stone's theorem — follows from T̂ being a one-parameter unitary group), the fixed point condition becomes:
 
-$$e^{-i\hat{H}\delta t/\hbar}|v_0\rangle = |v_0\rangle$$
+```
+e^{-iĤδt/ℏ} |v₀⟩ = |v₀⟩
+```
 
-This holds if and only if |v₀⟩ is an eigenvector of e^{-iĤδt/ℏ} with eigenvalue 1, which occurs if and only if |v₀⟩ is an eigenvector of Ĥ with eigenvalue E₀ = nℏ/δt for integer n. Taking E₀ to be the minimum eigenvalue (ground state): Ĥ|v₀⟩ = E₀|v₀⟩. □
+This holds if and only if:
 
-**Corollary 4.2.** *The Big Bang seed v₀ is the vacuum state of the derived Hamiltonian Ĥ.* The universe begins in the ground state of its own Hamiltonian — not from arbitrary initial conditions.
+```
+╔══════════════════════════╗
+║  Ĥ|v₀⟩ = E₀|v₀⟩         ║
+╚══════════════════════════╝
+```
 
----
-
-## 5. What the Hamiltonian Must Be
-
-The Hamiltonian Ĥ is the generator of T̂ (from Stone's theorem). It must satisfy:
-
-1. **Self-adjointness** (from unitarity of T̂): Ĥ = Ĥ†
-2. **Symmetry invariance**: Ĥ must be invariant under the derived symmetry group (Paper 07)
-3. **Renormalizability**: Ĥ contains only operators of mass dimension ≤ 4 (from the UV fixed-point requirement — at the Planck scale, the theory must be self-consistent)
-
-**Theorem 5.1 (SM Lagrangian uniqueness — ∂ Derived).** *The most general renormalizable Lagrangian invariant under G = Poincaré × U(1) × SU(2) × SU(3) with the CPT-derived particle content is the Standard Model Lagrangian:*
-
-$$\mathcal{L} = -\tfrac{1}{4}F^a_{\mu\nu}F^{a\mu\nu} + \bar{\psi}(i\gamma^\mu D_\mu)\psi + |D_\mu\phi|^2 - V(\phi) + \mathcal{L}_{Yukawa}$$
-
-*Status: ∂ Derived.* This is a standard result in QFT (the uniqueness of the SM under these constraints is well-established). CPT provides the group G from orbit structure; the uniqueness theorem is external but rigorous.
+**The fixed-point equation IS the ground state equation. The Big Bang seed IS the vacuum state of the theory's Hamiltonian.**
 
 ---
 
-## 6. Entropy Formula: Derivation
+## Level 4: What Ĥ Must Be
 
-**Theorem 6.1 (Von Neumann entropy — ✓ Theorem).** *The von Neumann formula S = −Tr[ρ ln ρ] is the unique function of the density matrix ρ satisfying:*
+`Ĥ` is the generator of `T̂`. It must be:
+1. Self-adjoint (from unitarity of T̂)
+2. Invariant under the derived symmetry group `G = Poincaré × U(1) × SU(2) × SU(3)`
+3. Renormalizable (mass dimension ≤ 4 terms — from UV fixed-point requirement)
 
-| Property | Why it follows from CPT |
-|----------|------------------------|
-| Unitary invariance: S(UρU†) = S(ρ) | T̂ is unitary: physics is the same before/after evolution |
-| Additivity: S(ρ_A ⊗ ρ_B) = S(ρ_A) + S(ρ_B) | Independent nodes share no information (disjoint c() paths) |
-| Maximised at uniform distribution | Maximum uncertainty = no preferred propagation path |
+**Theorem** (standard QFT): The most general renormalizable Lagrangian invariant under `G` with the derived particle content is the **Standard Model Lagrangian**.
+
+```
+ℒ = -¼F^a_{μν}F^{aμν} + ψ̄(iγ^μD_μ)ψ + |D_μφ|² - V(φ) + ℒ_Yukawa
+```
+
+The Standard Model Lagrangian is **derived** — not postulated. It is the unique Hamiltonian generator of the derived symmetry group under renormalizability.
+
+---
+
+## Level 5: Entropy and Information
+
+### Entropy Formula (derived, not applied)
+
+Given axiom 1 (complex linear `c()`) and axiom 2 (unitary `t()`), four properties of entropy follow:
+
+| Property | Why it follows |
+|---|---|
+| Unitary invariance: S(UρU†) = S(ρ) | T̂ is unitary — physics same before/after |
+| Additivity: S(A⊗B) = S(A) + S(B) | Independent nodes don't share information |
+| Maximized at uniform distribution | Maximum uncertainty = no preferred path |
 | Continuous in ρ | c() is continuous (complex linear) |
 
-These four properties uniquely determine S = −Tr[ρ ln ρ] [von Neumann 1932; Petz 1992]. The entropy formula is forced by the CPT structure, not borrowed from thermodynamics.
+These four conditions **uniquely determine**:
 
-**Corollary 6.2 (Second Law — ✓ Theorem).** *S is non-decreasing.* Since resolution is irreversible (Axiom 2: once a configuration is resolved, it cannot be unresolved), entropy cannot decrease. □
+```
+S = -Tr[ρ log ρ]    (von Neumann entropy)
+```
 
----
+This is a proven uniqueness theorem. The formula is forced, not borrowed.
 
-## 7. Information Growth Law (∂ Derived)
+### Information Growth Law
 
-The total structural information in the resolved universe grows as:
+```
+I(t) = I₀ · a(t)/a(0)
+```
 
-$$I(t) = I_0 \cdot \frac{a(t)}{a(0)}$$
+The information content grows as the **cosmological scale factor** `a(t)`. The information amplification rate `λ(t)` equals the Hubble parameter:
 
-where a(t) is the cosmological scale factor. The information amplification rate equals the Hubble parameter:
+```
+λ(t) = ȧ/a = H(t)
+```
 
-$$\lambda(t) = \frac{\dot{a}}{a} = H(t)$$
-
-**Physical expansion = Information expansion.** The universe's spatial expansion and its information expansion are the same phenomenon — the resolution front propagating outward.
-
-*Status: ∂ Derived.* The identification of the CPT resolution front with the cosmological scale factor uses the Hubble radius as the propagation horizon, which is the key assumption of Paper 02 (cosmological constant).
-
----
-
-## 8. Boundary Structure and Quantum Tunneling
-
-The Hubble horizon, event horizons, and Planck scale are **soft boundaries** of the CPT propagation network — not hard walls. The c() amplitude beyond a boundary q decays exponentially but never vanishes:
-
-$$\alpha_{vv'} \propto e^{-\kappa|v'-q|} \quad \text{for } |v'| > q$$
-
-This leakage mechanism is quantum tunneling — c() probabilistically propagating beyond the classically-forbidden boundary. Tunneling is not a separate phenomenon added to the theory; it is the natural behaviour of c() near any boundary.
-
-The probability current (tunneling flux) satisfies the continuity equation derived from the Schrödinger equation:
-
-$$\frac{\partial \rho}{\partial t} + \nabla \cdot J = 0, \qquad J_{leak} = \oint_q J \cdot dA$$
+The universe's physical expansion and its information expansion are the same phenomenon.
 
 ---
 
-## 9. Conclusion
+## Level 6: The Boundary Structure
 
-The CPT mathematical framework rests entirely on the two axioms. The Hilbert space structure follows from complex linearity. Unitarity of T̂ follows from bijectivity. The Schrödinger equation follows from Stone's theorem. The fixed-point equation is the ground-state equation. The Standard Model Lagrangian is the unique renormalizable Hamiltonian invariant under the derived gauge group. The entropy formula is forced by four algebraic properties of the propagation structure. At each step, we have identified which results are ✓ Theorems and which are ∂ Derived (using an established external result).
+The "playing field" boundary `q` (Hubble horizon, event horizons, Planck scale) is a **soft boundary** — not a hard wall:
+
+```
+V(v) = V₀ · Θ(|v| - q) · e^{κ(|v|-q)}
+```
+
+The `c()` amplitude in the barrier decays exponentially but never reaches zero:
+
+```
+α_{vv'} ∝ e^{-κ|v'-q|}    for |v'| > q
+```
+
+**Quantum tunneling** is `c()` probabilistically escaping beyond `q`. This is not a separate phenomenon — it IS the leakage mechanism.
+
+The **probability current** (leakage flux) follows from the derived Schrödinger equation's continuity equation:
+
+```
+∂ρ/∂t + ∇·J = 0
+J_leak = ∮_q J · dA
+```
 
 ---
 
-## References
+## Level 7: The Coupling Constants as Eigenvalues
 
-[Petz 1992] D. Petz, Lett. Math. Phys. 24, 211 (1992). [Uniqueness of von Neumann entropy]  
-[Stone 1932] M. H. Stone, Ann. Math. 33, 643 (1932).  
-[von Neumann 1932] J. von Neumann, Mathematische Grundlagen der Quantenmechanik, Springer (1932).  
-[Mani 2026a] E. Mani, "Configuration Propagation Theory: Framework" (Paper 01, this series).  
-[Mani 2026b] E. Mani, "Physical Derivations from CPT" (Paper 07, this series).  
+Linearize around the fixed point `|v₀⟩`:
+
+```
+|v⟩ = |v₀⟩ + |δv⟩
+T̂Ĉ(|v₀⟩ + |δv⟩) = |v₀⟩ + D[T̂Ĉ]_{v₀} · |δv⟩
+```
+
+The Jacobian `D[T̂Ĉ]_{v₀}` has eigenvalues `λᵢ`:
+
+| Eigenvalue | Physical meaning |
+|---|---|
+| `|λᵢ| = 1` | Exactly massless — photon, graviton |
+| `|λᵢ| < 1` | Massive particle: `mᵢ ∝ -log|λᵢ|` |
+| `|λᵢ| > 1` | Unstable configuration — decays |
+
+The **coupling constant** `α` is:
+
+```
+α = |⟨v₀; γ | D[T̂Ĉ]_{v₀} | v₀⟩|²
+```
+
+The self-referential bootstrap guarantees uniqueness:
+
+```
+α = F(α)    (fixed-point equation for coupling)
+```
+
+By **Brouwer's Fixed-Point Theorem**: F continuous, maps [0,1]→[0,1], therefore **at least one** `α*` exists. The coupling constant is not free — it is a self-consistent eigenvalue.
+
+*Note: Brouwer guarantees existence (∃α*), not uniqueness (∃!α*). Uniqueness would require a contraction condition (Banach) or separate injectivity argument. This is currently a conjecture: α* is conjectured to be unique based on physical grounds, but no formal proof exists.*
+
+---
+
+## Complete Mathematical Structure Summary
+
+```
+TWO AXIOMS
+    │
+    ▼
+Hilbert space H = span_ℂ{|v⟩}
+Propagation: Ĉ|v⟩ = Σ α_{vv'} |v⟩⊗|v'⟩
+Transformation: T̂†T̂ = 𝟙
+    │
+    ▼
+FIXED-POINT EQUATION: v₀ = T̂·Ĉ(v₀)
+    ≡ Ground state: Ĥ|v₀⟩ = E₀|v₀⟩
+    │
+    ├─ Symmetry group G → Standard Model Lagrangian (unique)
+    │
+    ├─ KM + vacuum stability → N_g = 3 → full beta functions
+    │
+    ├─ Holographic boundary → Λ ~ H₀²/c²
+    │
+    ├─ Stability analysis → 3+1 dimensions
+    │
+    ├─ Unitarity → entropy formula S = -Tr[ρ log ρ]
+    │
+    └─ Brouwer → α* exists (existence only; uniqueness conjectured)
+
+FREE PARAMETERS: Zero (in principle, if α* is unique)
+                 One in practice (α — read from Nature)
+                 Light Yukawa couplings require non-perturbative computation
+```
