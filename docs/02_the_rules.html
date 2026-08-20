@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Two Rules — CPT Explorer</title>
+<link rel="stylesheet" href="shared.css">
+<style>
+  .demo-box { background: rgba(15,23,42,0.8); border: 1px solid rgba(99,102,241,0.2); border-radius: 16px; padding: 24px; margin: 20px 0; }
+  .demo-box h3 { color: #818cf8; margin-bottom: 16px; }
+  canvas.demo { border-radius: 12px; background: rgba(0,0,0,0.4); display: block; margin: 0 auto; }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0; }
+  .col-box { background: rgba(15,23,42,0.7); border: 1px solid rgba(148,163,184,0.1); border-radius: 14px; padding: 20px; }
+  .col-box.blue { border-color: rgba(96,165,250,0.3); }
+  .col-box.purple { border-color: rgba(167,139,250,0.3); }
+  .col-box h3 { margin-bottom: 10px; }
+  .col-box.blue h3 { color: #60a5fa; }
+  .col-box.purple h3 { color: #a78bfa; }
+  .col-box p { color: #94a3b8; font-size: 0.9rem; line-height: 1.65; }
+  .properties { display: flex; flex-direction: column; gap: 10px; margin-top: 12px; }
+  .prop { display: flex; gap: 12px; align-items: flex-start; }
+  .prop-icon { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; flex-shrink: 0; }
+  .prop-icon.yes { background: rgba(52,211,153,0.2); color: #34d399; }
+  .prop-icon.no { background: rgba(248,113,113,0.2); color: #f87171; }
+  .prop p { color: #94a3b8; font-size: 0.88rem; line-height: 1.55; margin: 0; }
+  .prop p strong { color: #c7d2fe; }
+  .formula-explain { display: grid; grid-template-columns: auto 1fr; gap: 16px 24px; margin: 20px 0; align-items: start; }
+  .formula-sym { font-size: 1.4rem; font-family: monospace; color: #a5b4fc; padding-top: 2px; }
+  .formula-desc p { color: #94a3b8; font-size: 0.9rem; line-height: 1.6; margin: 0; }
+</style>
+</head>
+<body>
+<div class="page-container">
+  <nav class="breadcrumb"><a href="index.html">← Home</a> / Chapter 2</nav>
+  <h1 class="page-title">⚙️ The Two Rules: c() and t()</h1>
+  <p class="page-subtitle">Every single thing in the universe — particles, forces, space, time — comes from two mathematical rules. Let's understand each one deeply.</p>
+
+  <section>
+    <h2>Why Complex Numbers?</h2>
+    <p>Normal numbers can only tell you <em>how much</em>. Complex numbers tell you <em>how much AND in which direction</em>. They're the natural language for anything that can interfere — like waves.</p>
+
+    <div class="eli15">
+      <div class="eli15-header">🎯 Simple version — complex numbers</div>
+      <p>Imagine you're giving someone directions. Saying "walk 5 steps" is a regular number. Saying "walk 5 steps <strong>north-east</strong>" is a complex number — it has both a size (5) and a direction (north-east).</p>
+      <p>In physics, a "wave amplitude" is a complex number: it has a size (how strong) and a phase (where in its cycle). Two waves can <strong>cancel</strong> if their phases are opposite — that's destructive interference. This cancellation is the core of quantum mechanics, and it only works with complex numbers.</p>
+    </div>
+
+    <div class="demo-box">
+      <h3>🌊 Complex Number Visualizer</h3>
+      <p style="color:#64748b;font-size:0.85rem;margin-bottom:12px">A complex number is a point in a 2D plane. Its distance from center = magnitude. Its angle = phase. Watch how two complex numbers add (they can CANCEL each other — this is interference!):</p>
+      <canvas class="demo" id="complex-vis" width="660" height="280"></canvas>
+      <div class="slider-container" style="margin-top:12px">
+        <label>Phase of wave 2:</label>
+        <input type="range" id="phase-slider" min="0" max="628" value="0" step="1">
+        <span class="value-display" id="phase-val">0°</span>
+      </div>
+      <p style="color:#64748b;font-size:0.82rem;text-align:center;margin-top:8px">When phases align → constructive (bright). When opposite → destructive (dark). <strong>This is the double-slit experiment!</strong></p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Rule 1: c() — The Propagation Function</h2>
+    <div class="eli15">
+      <div class="eli15-header">🎯 Simple version — what c() does</div>
+      <p>Think of c() like a rumour spreading at school. When you hear something, you don't just pass it to the person next to you — you pass it to <strong>everyone at once</strong>, but with different strengths and slightly different versions (different complex amplitudes). Most versions cancel out (interference). Only the versions that add up survive — those become the "particle" you detect.</p>
+    </div>
+    <div class="two-col">
+      <div class="col-box blue">
+        <h3>What it does</h3>
+        <p>c() takes a configuration — a snapshot of information at one node — and outputs complex-valued amplitudes for all possible next configurations.</p>
+        <div class="properties">
+          <div class="prop"><div class="prop-icon yes">✓</div><p><strong>Complex linear:</strong> Amplitudes use complex numbers, allowing interference</p></div>
+          <div class="prop"><div class="prop-icon yes">✓</div><p><strong>Non-local:</strong> c() can reach any other node, not just adjacent ones</p></div>
+          <div class="prop"><div class="prop-icon yes">✓</div><p><strong>Atemporal:</strong> All of c() runs "at once" — it's not limited by the speed of light</p></div>
+          <div class="prop"><div class="prop-icon no">✗</div><p><strong>Not reversible by itself:</strong> New nodes are created, old ones stay</p></div>
+        </div>
+      </div>
+      <div class="col-box purple">
+        <h3>What it creates</h3>
+        <p>c() builds the entire quantum mechanical structure automatically:</p>
+        <div class="properties">
+          <div class="prop"><div class="prop-icon yes">✓</div><p>Wave functions — because amplitudes are complex</p></div>
+          <div class="prop"><div class="prop-icon yes">✓</div><p>Superposition — because c() can point to multiple nodes</p></div>
+          <div class="prop"><div class="prop-icon yes">✓</div><p>Interference — because complex amplitudes add/cancel</p></div>
+          <div class="prop"><div class="prop-icon yes">✓</div><p>Entanglement — because two nodes can share c() specifications</p></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="math-block">
+      c: Config → ℂ[Config]
+      <small>c() maps each configuration to complex amplitudes on all configurations — this IS the quantum wave function</small>
+    </div>
+
+    <div class="demo-box">
+      <h3>🎯 c() Propagation Animation</h3>
+      <canvas class="demo" id="cprop" width="660" height="220"></canvas>
+      <p style="text-align:center;color:#64748b;font-size:0.82rem;margin-top:8px">Each node sends complex-amplitude "tendrils" outward. Where many tendrils overlap and reinforce: a particle "resolves" (is observed) there.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Rule 2: t() — The Transformation Function</h2>
+
+    <div class="eli15">
+      <div class="eli15-header">🎯 Simple version — what t() does</div>
+      <p>Think of t() like a perfect password manager. Every password (input) maps to exactly one encrypted version (output), and every encrypted version can only come from one password. <strong>Nothing is lost, nothing is duplicated.</strong> This "nothing lost" property is why information is conserved — and from that, all of physics follows.</p>
+      <p>Here's the wild part: just <em>because</em> t() never loses information, the universe must have an arrow of time. Once you've resolved a configuration (like measuring an electron), you can't un-resolve it. The past is locked in. That's the 2nd law of thermodynamics, falling out of one rule.</p>
+    </div>
+
+    <div class="highlight-box">
+      <p><strong>The single most important constraint:</strong> t() is <em>bijective</em> — every input maps to exactly one output, and every output comes from exactly one input. Information is never created or destroyed.</p>
+    </div>
+
+    <p>In quantum mechanics language: t() is <strong>unitary</strong>. This single property gives you:</p>
+
+    <div class="formula-explain">
+      <div class="formula-sym">t†t = 𝟙</div>
+      <div class="formula-desc"><p>The adjoint of t() times t() equals identity. This is the mathematical definition of "unitary." It directly causes energy conservation (via Noether's theorem applied to the time-translation symmetry this creates).</p></div>
+
+      <div class="formula-sym">S = -Tr[ρ log ρ]</div>
+      <div class="formula-desc"><p>The von Neumann entropy formula is forced by this alone. The entropy formula isn't assumed — it's the <em>unique</em> formula satisfying unitarity + additivity for independent systems + continuity. This is a real mathematical theorem.</p></div>
+
+      <div class="formula-sym">dS/dt ≥ 0</div>
+      <div class="formula-desc"><p>Entropy always increases — the 2nd law of thermodynamics — because t() is irreversible in the direction of resolution. Once a configuration is "observed," it can't be unobserved. The arrow of time emerges from this alone.</p></div>
+    </div>
+
+    <div class="demo-box">
+      <h3>🔄 Bijection vs. Non-Bijection</h3>
+      <canvas class="demo" id="bijec" width="660" height="200"></canvas>
+      <p style="text-align:center;color:#64748b;font-size:0.82rem;margin-top:8px">Left: t() is bijective — every arrow is unique. Right: Non-bijective — two inputs map to one output (information destroyed!). CPT requires left.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>What Falls Out Automatically</h2>
+    <table>
+      <tr><th>Physical Law</th><th>Why It Follows</th><th>Status</th></tr>
+      <tr><td>Quantum mechanics (Schrödinger equation)</td><td>Stone's theorem applied to unitary t()</td><td><span class="badge badge-theorem">✓ Theorem</span></td></tr>
+      <tr><td>Entropy increases (2nd Law)</td><td>Resolution is irreversible; t() is bijective</td><td><span class="badge badge-theorem">✓ Theorem</span></td></tr>
+      <tr><td>Entropy formula S = -Tr[ρ log ρ]</td><td>Unique formula satisfying 4 algebraic axioms from t()</td><td><span class="badge badge-theorem">✓ Theorem</span></td></tr>
+      <tr><td>Energy conservation</td><td>Noether's theorem + time-translation symmetry from t()</td><td><span class="badge badge-derived">∂ Derived</span></td></tr>
+      <tr><td>U(1) electromagnetism</td><td>Complex c() → phases are unobservable → gauge symmetry</td><td><span class="badge badge-derived">∂ Derived</span></td></tr>
+    </table>
+  </section>
+
+  <div class="nav-footer">
+    <a href="01_big_idea.html" class="nav-btn secondary">← The Big Idea</a>
+    <a href="03_quantum.html" class="nav-btn primary">Next: Quantum Mechanics →</a>
+  </div>
+</div>
+
+<script>
+// ---- Complex Number Visualizer ----
+const cv = document.getElementById('complex-vis');
+const cc = cv.getContext('2d');
+const slider = document.getElementById('phase-slider');
+const phaseVal = document.getElementById('phase-val');
+
+slider.oninput = function() { phaseVal.textContent = Math.round(this.value / 6.28 * 360) + '°'; };
+
+function drawComplex() {
+  const phase2 = slider.value / 100;
+  const W = cv.width, H = cv.height;
+  cc.clearRect(0, 0, W, H);
+
+  const t = Date.now() / 1000;
+  const cx1 = W / 4, cy = H / 2;
+  const cx2 = W / 2 + 30, cy2 = H / 2;
+  const cx3 = W * 0.75 + 30, cy3 = H / 2;
+  const R = 80;
+
+  // Draw three panels: wave 1, wave 2, sum
+  ['Wave 1 (fixed)', 'Wave 2 (adjust)', 'Sum'].forEach((label, i) => {
+    const cx = [W/6, W/2, W*5/6][i];
+    cc.strokeStyle = 'rgba(99,102,241,0.15)';
+    cc.lineWidth = 1;
+    cc.beginPath(); cc.arc(cx, cy, R, 0, Math.PI*2); cc.stroke();
+    cc.beginPath(); cc.moveTo(cx - R - 10, cy); cc.lineTo(cx + R + 10, cy); cc.stroke();
+    cc.beginPath(); cc.moveTo(cx, cy - R - 10); cc.lineTo(cx, cy + R + 10); cc.stroke();
+
+    cc.fillStyle = '#475569'; cc.font = '11px system-ui';
+    cc.fillText(label, cx - 30, cy - R - 15);
+  });
+
+  const angle1 = t * 1.5;
+  const angle2 = t * 1.5 + phase2;
+
+  const x1 = Math.cos(angle1), y1 = Math.sin(angle1);
+  const x2 = Math.cos(angle2), y2 = Math.sin(angle2);
+  const xs = x1 + x2, ys = y1 + y2;
+  const mag = Math.sqrt(xs*xs + ys*ys);
+
+  [[W/6, x1, y1, '#60a5fa'], [W/2, x2, y2, '#a78bfa'], [W*5/6, xs/2, ys/2, `hsl(${150 - mag*40}, 80%, 60%)`]].forEach(([cx, x, y, col]) => {
+    cc.beginPath();
+    cc.strokeStyle = col;
+    cc.lineWidth = 3;
+    cc.moveTo(cx, cy);
+    cc.lineTo(cx + x * R, cy + y * R);
+    cc.stroke();
+    cc.beginPath();
+    cc.arc(cx + x * R, cy + y * R, 6, 0, Math.PI*2);
+    cc.fillStyle = col;
+    cc.fill();
+  });
+
+  const sumMag = Math.min(R, mag / 2 * R);
+  cc.fillStyle = '#1e293b'; cc.fillRect(W*5/6 - 30, cy + R + 5, 60, 22);
+  cc.fillStyle = `hsl(${150 - mag*40}, 80%, 60%)`; cc.font = 'bold 12px system-ui';
+  cc.fillText(`|sum| = ${mag.toFixed(2)}`, W*5/6 - 28, cy + R + 20);
+
+  requestAnimationFrame(drawComplex);
+}
+drawComplex();
+
+// ---- c() Propagation ----
+const cp = document.getElementById('cprop');
+const cpc = cp.getContext('2d');
+const W2 = cp.width, H2 = cp.height;
+
+let rings = [];
+function spawnRing() {
+  rings.push({ r: 0, alpha: 1, phase: Math.random() * Math.PI * 2 });
+}
+setInterval(spawnRing, 600);
+spawnRing();
+
+const nodePositions = Array.from({length: 12}, () => ({
+  x: 60 + Math.random() * (W2 - 120),
+  y: 20 + Math.random() * (H2 - 40)
+}));
+
+function drawCProp() {
+  cpc.fillStyle = 'rgba(0,0,0,0.12)';
+  cpc.fillRect(0, 0, W2, H2);
+  const t = Date.now() / 1000;
+  const cx = W2/2 + 10, cy = H2/2;
+
+  rings = rings.filter(r => r.alpha > 0.01);
+  rings.forEach(r => {
+    r.r += 1.5;
+    r.alpha *= 0.98;
+    const hue = (r.phase * 180 / Math.PI + t * 30) % 360;
+    cpc.beginPath();
+    cpc.arc(cx, cy, r.r, 0, Math.PI * 2);
+    cpc.strokeStyle = `hsla(${hue}, 80%, 60%, ${r.alpha})`;
+    cpc.lineWidth = 1.5;
+    cpc.stroke();
+  });
+
+  nodePositions.forEach((n, i) => {
+    const d = Math.sqrt((n.x-cx)**2 + (n.y-cy)**2);
+    const active = rings.some(r => Math.abs(r.r - d) < 8);
+    cpc.beginPath();
+    cpc.arc(n.x, n.y, active ? 7 : 4, 0, Math.PI * 2);
+    cpc.fillStyle = active ? '#34d399' : '#334155';
+    cpc.fill();
+    if (active) {
+      cpc.beginPath();
+      cpc.arc(n.x, n.y, 12, 0, Math.PI * 2);
+      cpc.strokeStyle = 'rgba(52,211,153,0.3)';
+      cpc.lineWidth = 2;
+      cpc.stroke();
+    }
+  });
+
+  cpc.beginPath();
+  cpc.arc(cx, cy, 8, 0, Math.PI * 2);
+  cpc.fillStyle = '#818cf8';
+  cpc.fill();
+  cpc.font = '11px system-ui'; cpc.fillStyle = '#64748b';
+  cpc.fillText('source node', cx - 36, cy + 22);
+
+  requestAnimationFrame(drawCProp);
+}
+drawCProp();
+
+// ---- Bijection Demo ----
+const bj = document.getElementById('bijec');
+const bjc = bj.getContext('2d');
+const W3 = bj.width, H3 = bj.height;
+
+function drawBijec() {
+  bjc.clearRect(0, 0, W3, H3);
+  const t = Date.now() / 1000;
+
+  // Left half: bijective
+  const lx = W3/4;
+  const inputs = [H3*0.2, H3*0.5, H3*0.8];
+  const outputs_bij = [H3*0.2, H3*0.5, H3*0.8];
+  const outputs_nij = [H3*0.35, H3*0.35, H3*0.65];
+
+  bjc.fillStyle = '#1e293b';
+  bjc.fillRect(0, 0, W3/2 - 10, H3);
+  bjc.fillRect(W3/2 + 10, 0, W3/2, H3);
+
+  bjc.fillStyle = '#334155'; bjc.font = '12px system-ui';
+  bjc.fillText('✓ Bijective (CPT requires this)', 8, 20);
+  bjc.fillText('✗ Non-bijective (info destroyed)', W3/2+18, 20);
+
+  const colors = ['#60a5fa','#34d399','#f87171'];
+  inputs.forEach((y, i) => {
+    bjc.beginPath(); bjc.arc(lx - 80, y, 8, 0, Math.PI*2); bjc.fillStyle = colors[i]; bjc.fill();
+    bjc.beginPath(); bjc.arc(lx + 80, outputs_bij[i], 8, 0, Math.PI*2); bjc.fillStyle = colors[i]; bjc.fill();
+    const anim = 0.5 + 0.5 * Math.sin(t * 2 + i);
+    bjc.beginPath();
+    bjc.moveTo(lx - 72, y);
+    bjc.bezierCurveTo(lx - 20, y, lx + 20, outputs_bij[i], lx + 72, outputs_bij[i]);
+    bjc.strokeStyle = `rgba(${i===0?'96,165,250':i===1?'52,211,153':'248,113,113'},${0.4+anim*0.4})`;
+    bjc.lineWidth = 2;
+    bjc.stroke();
+  });
+
+  const rx = W3*3/4;
+  inputs.forEach((y, i) => {
+    bjc.beginPath(); bjc.arc(rx - 80, y, 8, 0, Math.PI*2); bjc.fillStyle = colors[i]; bjc.fill();
+    bjc.beginPath(); bjc.arc(rx + 80, outputs_nij[i], 8, 0, Math.PI*2); bjc.fillStyle = '#f87171'; bjc.fill();
+    bjc.beginPath();
+    bjc.moveTo(rx - 72, y);
+    bjc.bezierCurveTo(rx - 20, y, rx + 20, outputs_nij[i], rx + 72, outputs_nij[i]);
+    bjc.strokeStyle = `rgba(248,113,113,0.5)`;
+    bjc.lineWidth = 2;
+    bjc.stroke();
+  });
+
+  bjc.fillStyle = '#dc2626'; bjc.font = 'bold 11px system-ui';
+  bjc.fillText('⚠ Blue and green collapse to same output!', rx - 80, H3 - 8);
+
+  requestAnimationFrame(drawBijec);
+}
+drawBijec();
+</script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+# Exclude old working drafts — only v3 is published
+CPT/v1/
+CPT/v2/
+
+# Zip files
+*.zip
+
+# VR experiments (not part of this publication)
+VR/
+
+# Windows
+Thumbs.db
+desktop.ini
+
+# macOS
+.DS_Store
+
+# Editor
+.vscode/
+*.swp

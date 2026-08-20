@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quantum Mechanics Falls Out — CPT Explorer</title>
+<link rel="stylesheet" href="shared.css">
+<style>
+  canvas.qm-canvas { border-radius: 12px; background: rgba(0,0,0,0.4); display: block; margin: 0 auto; }
+  .analogy-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0; }
+  .analogy-card { background: rgba(15,23,42,0.8); border: 1px solid rgba(99,102,241,0.15); border-radius: 14px; padding: 20px; }
+  .analogy-card .tag { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; }
+  .analogy-card.left .tag { color: #60a5fa; }
+  .analogy-card.right .tag { color: #34d399; }
+  .analogy-card h3 { color: #e2e8f0; margin-bottom: 8px; font-size: 1rem; }
+  .analogy-card p { color: #94a3b8; font-size: 0.88rem; line-height: 1.65; margin: 0; }
+  .steps { display: flex; flex-direction: column; gap: 0; margin: 20px 0; }
+  .step { display: flex; gap: 20px; padding: 18px 22px; border: 1px solid rgba(99,102,241,0.12); border-bottom: none; background: rgba(15,23,42,0.5); }
+  .step:first-child { border-radius: 16px 16px 0 0; }
+  .step:last-child { border-bottom: 1px solid rgba(99,102,241,0.12); border-radius: 0 0 16px 16px; }
+  .step-num { color: #6366f1; font-size: 1.4rem; font-weight: 900; flex-shrink: 0; width: 32px; }
+  .step h3 { color: #c7d2fe; font-size: 0.95rem; margin-bottom: 6px; }
+  .step p { color: #94a3b8; font-size: 0.87rem; line-height: 1.6; margin: 0; }
+  @media (max-width: 600px) { .analogy-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="page-container">
+  <nav class="breadcrumb"><a href="index.html">← Home</a> / Chapter 3</nav>
+  <h1 class="page-title">🌊 Quantum Mechanics Falls Out</h1>
+  <p class="page-subtitle">Nobody "put" quantum mechanics into CPT. It emerges automatically from the complex-linear propagator c(). Here's why.</p>
+
+  <section>
+    <h2>What's Weird About Quantum Mechanics?</h2>
+    <p>In classical physics, a ball is <em>either</em> here <em>or</em> there. In quantum mechanics, a particle can be in a superposition — a mix of both — until you measure it. The famous double-slit experiment shows this: an electron can go through <em>both</em> slits at once.</p>
+    <p>Why does nature work this way? In the Standard Model, this is just assumed. CPT derives it.</p>
+  </section>
+
+  <section>
+    <h2>Complex Numbers Are the Key</h2>
+    <p>Remember Axiom 1: the propagator c() is <strong>complex linear</strong>. This means c() works with complex numbers — numbers with a real part AND an imaginary part.</p>
+
+    <div class="eli15">
+      <div class="eli15-header">🎯 Simple version — why complex = quantum</div>
+      <p>Normal probability adds like this: P(A or B) = P(A) + P(B). If there's a 30% chance of rain OR snow, you add the chances. But quantum amplitudes are complex numbers, and they can <strong>subtract</strong>. In the double-slit experiment, the amplitude for "electron goes through slit 1 and hits spot X" plus the amplitude for "goes through slit 2 and hits spot X" can be <em>zero</em> — even though both are non-zero separately. That's why the screen has dark bands. No complex numbers = no dark bands = no quantum mechanics.</p>
+    </div>
+
+    <div class="analogy-grid">
+      <div class="analogy-card left">
+        <div class="tag">If c() were real linear</div>
+        <h3>Classical physics</h3>
+        <p>c(a + b) = c(a) + c(b) over real numbers. States add, but can't "interfere" in interesting ways. You get classical probability — just like mixing paint colors.</p>
+      </div>
+      <div class="analogy-card right">
+        <div class="tag">Since c() is complex linear</div>
+        <h3>Quantum mechanics emerges</h3>
+        <p>c(a + b) = c(a) + c(b) over complex numbers. Complex amplitudes add — and when you square them to get probability, cross-terms appear. This IS interference. This IS quantum mechanics.</p>
+      </div>
+    </div>
+
+    <canvas class="qm-canvas" id="interference" width="660" height="280"></canvas>
+    <p style="text-align:center;color:#64748b;font-size:0.82rem;margin-top:8px">Two complex propagators add together. The result (right) shows the characteristic interference pattern of quantum mechanics — bright and dark fringes. This is NOT put in by hand; it follows from c() being complex linear.</p>
+  </section>
+
+  <section>
+    <h2>Stone's Theorem: From Propagation to Schrödinger</h2>
+    <p>This is where CPT achieves something remarkable. There is a fundamental theorem in mathematics called <strong>Stone's Theorem</strong>:</p>
+
+    <div class="eli15">
+      <div class="eli15-header">🎯 Simple version — Stone's theorem</div>
+      <p>Imagine a perfectly smooth spinning wheel. If it spins at a constant rate (no jerks, no slowing), then you can describe its position at any time with a simple formula: angle = ω×t. <strong>Stone's theorem is the same idea for quantum evolution</strong>: if the universe evolves smoothly and unitarily (no information loss), then the evolution <em>must</em> have the form e^(-iHt) for some H. That H is the Hamiltonian — the energy operator. Differentiate it and you get the Schrödinger equation. No postulate needed.</p>
+    </div>
+
+    <div class="highlight-box">
+      <strong>Stone's Theorem (1932):</strong> If you have a group of linear operators {U(t)} that act on a complex vector space, and U(t) is continuous in t and preserves inner products (unitary), then there must exist a self-adjoint operator H such that:<br><br>
+      U(t) = e^{-iHt}
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div>
+          <h3>The resolution front moves forward in time</h3>
+          <p>The bijective time function t() defines a group of evolution operators — one for each moment. The universe at time t₂ is obtained by applying t() to the universe at t₁.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div>
+          <h3>These operators act on a complex vector space</h3>
+          <p>Since c() is complex linear, the space of all configurations v is a complex vector space. The evolution operators are complex-linear operators on this space.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div>
+          <h3>The evolution preserves the inner product</h3>
+          <p>The total "number" of configurations is conserved — nothing is created or destroyed by the propagation. This means the evolution is unitary: U(t)†U(t) = I.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div>
+          <h3>Stone's theorem fires</h3>
+          <p>A continuous one-parameter unitary group on a complex Hilbert space <em>must</em> take the form U(t) = e^{-iHt} for some Hermitian H. This is a proven mathematical fact.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">5</div>
+        <div>
+          <h3>The Schrödinger equation appears</h3>
+          <p>Taking the derivative: d|ψ⟩/dt = -iH|ψ⟩, which is exactly iℏ d|ψ⟩/dt = H|ψ⟩. The Schrödinger equation is not an axiom — it's a theorem.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="math-block">
+      U(t) = e^{-iHt}      [from Stone's Theorem]
+      <br>
+      d|ψ(t)⟩/dt = -iH|ψ(t)⟩
+      <br>
+      iℏ d|ψ(t)⟩/dt = H|ψ(t)⟩    [Schrödinger equation]
+      <small>ℏ just sets the units — it enters as the scale of the complex Hilbert space</small>
+    </div>
+  </section>
+
+  <section>
+    <h2>Wavefunction Animation: c() in Action</h2>
+    <p>Watch how the complex propagator c() creates quantum-mechanical behavior — specifically, the double-slit experiment:</p>
+
+    <canvas class="qm-canvas" id="doubleslit" width="660" height="300"></canvas>
+    <div class="slider-container">
+      <label>Wavelength λ:</label>
+      <input type="range" id="lambda-slider" min="20" max="60" value="36" step="1">
+      <span class="value-display" id="lambda-val">36 px</span>
+    </div>
+    <p style="text-align:center;color:#64748b;font-size:0.82rem">Each slit emits a circular wavefront (complex amplitude). They add — complex linear superposition. The probability (|amplitude|²) shows the interference pattern on the screen.</p>
+  </section>
+
+  <section>
+    <h2>What Quantum Mechanics Actually IS in CPT</h2>
+
+    <div class="eli15">
+      <div class="eli15-header">🎯 Simple version — the big picture</div>
+      <p>Standard quantum mechanics hands you a list of rules and says "just accept them." The rules include: particles have wave functions (why?), wave functions evolve by the Schrödinger equation (why?), when you measure, the wave function collapses (why? how?).</p>
+      <p>CPT's answer: <strong>most of these rules are consequences of just two properties</strong> — c() uses complex numbers, and t() is bijective. The Schrödinger equation is a theorem, not a postulate. The uncertainty principle follows from Fourier analysis of complex functions. Entanglement is a consequence of c() connecting multiple nodes. The only thing still murky is <em>measurement collapse</em> — that's still a conjecture in CPT, same as everywhere else in physics.</p>
+    </div>
+    <table>
+      <tr><th>QM Concept</th><th>Standard View</th><th>CPT Derivation</th></tr>
+      <tr><td>Superposition</td><td>Axiom: particles can be in multiple states</td><td>c() complex-linear → states add as complex numbers</td></tr>
+      <tr><td>Schrödinger eq.</td><td>Axiom: fundamental postulate</td><td>Stone's theorem applied to unitary evolution</td></tr>
+      <tr><td>Measurement collapse</td><td>Axiom: wavefunction "collapses" on measurement</td><td>~ Conjecture: related to resolution-front crossing</td></tr>
+      <tr><td>Uncertainty principle</td><td>Derived from Fourier theory + axioms</td><td>Same derivation applies (Fourier of complex ψ)</td></tr>
+      <tr><td>Born rule (|ψ|²)</td><td>Axiom: probability = |ψ|²</td><td>~ Conjecture: Gleason's theorem + additivity</td></tr>
+    </table>
+    <div class="badge badge-theorem">✓ Theorem</div> <span style="color:#94a3b8;font-size:0.85rem">Schrödinger equation follows from Stone's theorem. No quantum axioms needed.</span>
+  </section>
+
+  <div class="nav-footer">
+    <a href="02_the_rules.html" class="nav-btn secondary">← The Two Rules</a>
+    <a href="04_particles.html" class="nav-btn primary">Next: Particles as Loops →</a>
+  </div>
+</div>
+
+<script>
+// Pre-allocate offscreen canvases once — avoids per-frame allocation
+const iOff = document.createElement('canvas');
+iOff.width = 330; iOff.height = 140; // half-res of 660×280
+const iOc = iOff.getContext('2d');
+
+const DS_SLIT_X = 200, DS_SCREEN_X = 600, DS_DH = 300;
+const DS_FIELD_W = DS_SCREEN_X - DS_SLIT_X - 10; // 390
+const dsOff = document.createElement('canvas');
+dsOff.width = Math.ceil(DS_FIELD_W / 2); // 195
+dsOff.height = 150; // half of 300
+const dsOc = dsOff.getContext('2d');
+
+// --- Interference panel (3 panels: wave1, wave2, superposition) ---
+const ic = document.getElementById('interference').getContext('2d');
+ic.imageSmoothingEnabled = false;
+const IW = 660, IH = 280;
+let iTime = 0;
+
+function drawInterference() {
+  iTime += 0.03;
+  const W2 = iOff.width, H2 = iOff.height;
+  const pW = Math.floor(W2 / 3); // 110 px per panel at half-res
+  const img = iOc.createImageData(W2, H2);
+  const freq = 14;
+
+  for (let py = 0; py < H2; py++) {
+    const ly = py / H2;
+    for (let px = 0; px < W2; px++) {
+      const panel = px < pW ? 0 : px < pW * 2 ? 1 : 2;
+      // Normalized x within this panel [0,1]
+      const lx = (px - panel * pW) / pW;
+      const idx = (py * W2 + px) * 4;
+      let rv, gv, bv;
+
+      if (panel === 0) {
+        // Single blue source at center — no 1/r falloff, pure phase
+        const d = Math.sqrt((lx - 0.5) ** 2 + (ly - 0.5) ** 2);
+        const val = (Math.cos(freq * d - iTime) + 1) / 2;
+        rv = 20; gv = 60; bv = Math.floor(val * 200 + 55);
+      } else if (panel === 1) {
+        // Second source with phase offset — red
+        const d = Math.sqrt((lx - 0.5) ** 2 + (ly - 0.5) ** 2);
+        const val = (Math.cos(freq * d - iTime + 1.05) + 1) / 2;
+        rv = Math.floor(val * 200 + 55); gv = 40; bv = 60;
+      } else {
+        // Superposition of two offset sources — shows interference fringes
+        const d1 = Math.sqrt((lx - 0.3) ** 2 + (ly - 0.35) ** 2);
+        const d2 = Math.sqrt((lx - 0.3) ** 2 + (ly - 0.65) ** 2);
+        const re = Math.cos(freq * d1 - iTime) + Math.cos(freq * d2 - iTime + 1.05);
+        const im = Math.sin(freq * d1 - iTime) + Math.sin(freq * d2 - iTime + 1.05);
+        const prob = Math.min(1, (re * re + im * im) * 0.15);
+        rv = Math.floor(prob * 99); gv = Math.floor(prob * 102); bv = Math.floor(prob * 241);
+      }
+      img.data[idx] = rv; img.data[idx + 1] = gv; img.data[idx + 2] = bv; img.data[idx + 3] = 255;
+    }
+  }
+  iOc.putImageData(img, 0, 0);
+  ic.drawImage(iOff, 0, 0, IW, IH);
+
+  const panelW = IW / 3;
+  ic.textAlign = 'center';
+  ['Re(c(v₁))', 'Re(c(v₂))', 'Prob = |c(v₁)+c(v₂)|²'].forEach((label, i) => {
+    ic.fillStyle = 'rgba(0,0,0,0.65)';
+    ic.fillRect(i * panelW, IH - 26, panelW - 1, 26);
+    ic.strokeStyle = 'rgba(99,102,241,0.35)'; ic.lineWidth = 1;
+    ic.strokeRect(i * panelW, 0, panelW - 1, IH);
+    ic.fillStyle = '#94a3b8'; ic.font = '11px system-ui';
+    ic.fillText(label, i * panelW + panelW / 2, IH - 9);
+  });
+  ic.textAlign = 'left';
+  requestAnimationFrame(drawInterference);
+}
+drawInterference();
+
+// --- Double slit ---
+const dc = document.getElementById('doubleslit').getContext('2d');
+dc.imageSmoothingEnabled = false;
+const DW = 660, DH = DS_DH;
+const lambdaSlider = document.getElementById('lambda-slider');
+const lambdaVal = document.getElementById('lambda-val');
+let dsTime = 0;
+
+function drawDoubleSlit() {
+  dsTime += 0.04;
+  const lam = parseInt(lambdaSlider.value);
+  lambdaVal.textContent = lam + ' px';
+  const slit1Y = DH * 0.38, slit2Y = DH * 0.62;
+  const k = 2 * Math.PI / lam;
+
+  dc.fillStyle = '#0a1628';
+  dc.fillRect(0, 0, DW, DH);
+
+  // Source node
+  dc.beginPath(); dc.arc(60, DH / 2, 18, 0, Math.PI * 2);
+  dc.fillStyle = 'rgba(99,102,241,0.15)'; dc.fill();
+  dc.strokeStyle = '#6366f1'; dc.lineWidth = 2; dc.stroke();
+  dc.fillStyle = '#a5b4fc'; dc.font = '10px system-ui'; dc.textAlign = 'center';
+  dc.fillText('c(v₀)', 60, DH / 2 + 4);
+
+  // Incident wave rings towards barrier
+  for (let r = 20; r < DS_SLIT_X - 60; r += lam) {
+    dc.beginPath(); dc.arc(60, DH / 2, r, -Math.PI / 3, Math.PI / 3);
+    dc.strokeStyle = `rgba(99,102,241,${0.2 * (1 - r / (DS_SLIT_X - 60))})`;
+    dc.lineWidth = 1.5; dc.stroke();
+  }
+
+  // Barrier with two slits
+  dc.fillStyle = '#1e3a5f';
+  dc.fillRect(DS_SLIT_X - 6, 0, 12, slit1Y - 12);
+  dc.fillRect(DS_SLIT_X - 6, slit1Y + 12, 12, slit2Y - slit1Y - 24);
+  dc.fillRect(DS_SLIT_X - 6, slit2Y + 12, 12, DH - slit2Y - 12);
+  dc.fillStyle = '#60a5fa'; dc.font = 'bold 10px system-ui'; dc.textAlign = 'center';
+  dc.fillText('Slit 1', DS_SLIT_X, slit1Y - 16);
+  dc.fillText('Slit 2', DS_SLIT_X, slit2Y + 22);
+
+  // Interference field at half resolution — no 1/r falloff so fringes stay visible
+  const fImg = dsOc.createImageData(dsOff.width, dsOff.height);
+  for (let px = 0; px < dsOff.width; px++) {
+    const dx = px * 2 + 1;
+    for (let py = 0; py < dsOff.height; py++) {
+      const sy = py * 2;
+      const r1 = Math.sqrt(dx * dx + (sy - slit1Y) ** 2);
+      const r2 = Math.sqrt(dx * dx + (sy - slit2Y) ** 2);
+      const re = Math.cos(k * r1 - dsTime) + Math.cos(k * r2 - dsTime);
+      const im = Math.sin(k * r1 - dsTime) + Math.sin(k * r2 - dsTime);
+      const prob = re * re + im * im; // 0..4 — bright fringes = 4, dark = 0
+      const v = Math.min(255, Math.floor(prob * 55));
+      const idx = (py * dsOff.width + px) * 4;
+      fImg.data[idx] = Math.floor(v * 0.39); fImg.data[idx + 1] = Math.floor(v * 0.4);
+      fImg.data[idx + 2] = v; fImg.data[idx + 3] = 255;
+    }
+  }
+  dsOc.putImageData(fImg, 0, 0);
+  dc.drawImage(dsOff, DS_SLIT_X + 10, 0, DS_FIELD_W, DH);
+
+  // Screen marker
+  dc.fillStyle = 'rgba(248,113,113,0.3)'; dc.fillRect(DS_SCREEN_X - 2, 0, 4, DH);
+  dc.fillStyle = '#f87171'; dc.font = '10px system-ui'; dc.textAlign = 'center';
+  dc.fillText('screen', DS_SCREEN_X, DH - 8);
+
+  // Time-averaged intensity profile: I = 1 + cos(k*(r1-r2)), avoids time noise
+  dc.beginPath();
+  const dx_s = DS_SCREEN_X - DS_SLIT_X;
+  for (let y = 0; y < DH; y++) {
+    const r1 = Math.sqrt(dx_s * dx_s + (y - slit1Y) ** 2);
+    const r2 = Math.sqrt(dx_s * dx_s + (y - slit2Y) ** 2);
+    const I = (1 + Math.cos(k * (r1 - r2))) * 18; // 0..36 px
+    if (y === 0) dc.moveTo(DS_SCREEN_X + I, y); else dc.lineTo(DS_SCREEN_X + I, y);
+  }
+  dc.strokeStyle = '#f87171'; dc.lineWidth = 1.5; dc.stroke();
+  dc.textAlign = 'left';
+
+  requestAnimationFrame(drawDoubleSlit);
+}
+drawDoubleSlit();
+</script>
+</body>
+</html>

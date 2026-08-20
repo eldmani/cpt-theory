@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Configuration Propagation Theory — Explorer</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #050510; color: #e0e8ff; font-family: 'Segoe UI', system-ui, sans-serif; overflow-x: hidden; }
+  canvas#bg { position: fixed; top: 0; left: 0; z-index: 0; opacity: 0.6; }
+  .content { position: relative; z-index: 1; }
+  header { text-align: center; padding: 80px 20px 40px; }
+  header h1 { font-size: clamp(2rem, 5vw, 4rem); background: linear-gradient(135deg, #60a5fa, #a78bfa, #34d399); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 800; letter-spacing: -1px; }
+  header p.sub { font-size: 1.2rem; color: #94a3b8; margin-top: 12px; max-width: 700px; margin-inline: auto; }
+  .axioms { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; padding: 30px 20px; }
+  .axiom { background: rgba(99, 102, 241, 0.1); border: 1px solid rgba(99, 102, 241, 0.3); border-radius: 16px; padding: 24px 32px; max-width: 380px; text-align: center; }
+  .axiom .num { font-size: 2.5rem; font-weight: 900; color: #818cf8; }
+  .axiom h3 { color: #c7d2fe; font-size: 1.1rem; margin: 8px 0; }
+  .axiom p { color: #94a3b8; font-size: 0.95rem; line-height: 1.6; }
+  .cards-title { text-align: center; font-size: 1.6rem; font-weight: 700; color: #c7d2fe; padding: 20px; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; padding: 20px 40px 60px; max-width: 1200px; margin: 0 auto; }
+  .card { background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(148, 163, 184, 0.1); border-radius: 20px; padding: 28px; cursor: pointer; transition: all 0.3s; text-decoration: none; display: block; }
+  .card:hover { transform: translateY(-4px); border-color: rgba(99, 102, 241, 0.4); background: rgba(30, 41, 59, 0.9); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
+  .card .icon { font-size: 2.5rem; margin-bottom: 14px; }
+  .card .tag { font-size: 0.75rem; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+  .card h2 { font-size: 1.2rem; color: #e2e8f0; font-weight: 700; margin-bottom: 10px; }
+  .card p { color: #94a3b8; font-size: 0.9rem; line-height: 1.6; }
+  .card .level { display: inline-block; margin-top: 14px; font-size: 0.75rem; padding: 3px 10px; border-radius: 99px; }
+  .level-simple { background: rgba(52, 211, 153, 0.15); color: #34d399; }
+  .level-math { background: rgba(168, 85, 247, 0.15); color: #c084fc; }
+  .quote { text-align: center; padding: 40px 20px; font-size: 1.1rem; color: #64748b; font-style: italic; max-width: 600px; margin: 0 auto; }
+  .one-eq { text-align: center; padding: 20px; }
+  .eq-box { display: inline-block; background: rgba(99, 102, 241, 0.08); border: 1px solid rgba(99, 102, 241, 0.25); border-radius: 12px; padding: 20px 40px; font-size: 1.4rem; color: #a5b4fc; font-family: 'Courier New', monospace; }
+  .eq-label { color: #64748b; font-size: 0.85rem; margin-top: 10px; font-style: italic; font-family: inherit; }
+</style>
+</head>
+<body>
+<canvas id="bg"></canvas>
+<div class="content">
+  <header>
+    <h1>Configuration Propagation Theory</h1>
+    <p class="sub">The entire universe — space, time, matter, forces, and even quantum mechanics — emerges from two simple rules applied to one tiny seed.</p>
+  </header>
+
+  <div class="axioms">
+    <div class="axiom">
+      <div class="num">①</div>
+      <h3>c() is complex linear</h3>
+      <p>Information spreads using complex numbers — numbers with both size and direction. This is why interference and quantum superposition exist.</p>
+    </div>
+    <div class="axiom">
+      <div class="num">②</div>
+      <h3>t() preserves information</h3>
+      <p>The transformation never destroys information. What goes in, comes out — just rearranged. This is why energy is conserved and time has an arrow.</p>
+    </div>
+  </div>
+
+  <div class="one-eq">
+    <div class="eq-box">v₀ = T̂·Ĉ(v₀)</div>
+    <div class="eq-label">The Universe is the unique fixed point of its own propagation rule</div>
+  </div>
+
+  <p class="cards-title">Explore the Theory</p>
+
+  <div class="cards">
+    <a class="card" href="01_big_idea.html">
+      <div class="icon">🌱</div>
+      <div class="tag">Chapter 1</div>
+      <h2>The Big Idea</h2>
+      <p>Like DNA contains the rules to build an organism, the universe contains rules to build itself. Start here to understand the core insight.</p>
+      <span class="level level-simple">Start Here</span>
+    </a>
+
+    <a class="card" href="02_the_rules.html">
+      <div class="icon">⚙️</div>
+      <div class="tag">Chapter 2</div>
+      <h2>The Two Rules: c() and t()</h2>
+      <p>What are complex numbers, and why do they describe how information propagates? Animated visual guide to the two axioms.</p>
+      <span class="level level-simple">Interactive</span>
+    </a>
+
+    <a class="card" href="03_quantum.html">
+      <div class="icon">🌊</div>
+      <div class="tag">Chapter 3</div>
+      <h2>Quantum Mechanics Emerges</h2>
+      <p>The Schrödinger equation, wave-particle duality, and the double-slit experiment all fall out naturally from the two rules.</p>
+      <span class="level level-math">Includes Math</span>
+    </a>
+
+    <a class="card" href="04_particles.html">
+      <div class="icon">🔄</div>
+      <div class="tag">Chapter 4</div>
+      <h2>Particles Are Stable Loops</h2>
+      <p>An electron isn't a tiny ball. It's a stable loop in configuration space — a period-3 orbit visiting three states forever.</p>
+      <span class="level level-simple">Interactive 3D</span>
+    </a>
+
+    <a class="card" href="05_generations.html">
+      <div class="icon">⚡</div>
+      <div class="tag">Chapter 5</div>
+      <h2>Why Exactly 3 Generations?</h2>
+      <p>The universe has electron, muon, tau — three families. CPT proves this is the only possible number using CP violation and vacuum stability.</p>
+      <span class="level level-math">Full Proof</span>
+    </a>
+
+    <a class="card" href="06_masses.html">
+      <div class="icon">⚖️</div>
+      <div class="tag">Chapter 6</div>
+      <h2>Particle Masses & The Koide Formula</h2>
+      <p>The electron is 207× lighter than the muon. CPT predicts this ratio from a single number: α = 1/137. Interactive mass calculator included.</p>
+      <span class="level level-math">Includes Math</span>
+    </a>
+
+    <a class="card" href="07_cosmology.html">
+      <div class="icon">🌌</div>
+      <div class="tag">Chapter 7</div>
+      <h2>The Universe's Size & Dark Energy</h2>
+      <p>Why is the cosmological constant so small? CPT derives Λ ~ H₀²/c² and predicts dark energy is slowly weakening — testable by 2030.</p>
+      <span class="level level-math">Prediction</span>
+    </a>
+
+    <a class="card" href="08_papers.html">
+      <div class="icon">📄</div>
+      <div class="tag">Research</div>
+      <h2>The Formal Papers</h2>
+      <p>Read the mathematical proofs: N_g=3, SU(3) uniqueness, the Jarlskog calculation, and the Cartan classification argument.</p>
+      <span class="level level-math">Advanced</span>
+    </a>
+  </div>
+
+  <div class="quote">"The universe doesn't exist in mathematics. It <em>is</em> mathematics — specifically, the unique fixed point of two simple rules."</div>
+</div>
+
+<script>
+const canvas = document.getElementById('bg');
+const ctx = canvas.getContext('2d');
+let W, H, particles = [];
+
+function resize() {
+  W = canvas.width = window.innerWidth;
+  H = canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener('resize', resize);
+
+// Create node particles
+for (let i = 0; i < 80; i++) {
+  particles.push({
+    x: Math.random() * 1600 - 200,
+    y: Math.random() * 900 - 100,
+    vx: (Math.random() - 0.5) * 0.3,
+    vy: (Math.random() - 0.5) * 0.3,
+    r: Math.random() * 2 + 1,
+    phase: Math.random() * Math.PI * 2,
+    col: `hsl(${220 + Math.random() * 60}, 70%, 60%)`
+  });
+}
+
+function draw() {
+  ctx.clearRect(0, 0, W, H);
+  const t = Date.now() / 1000;
+
+  // Draw connections
+  for (let i = 0; i < particles.length; i++) {
+    for (let j = i + 1; j < particles.length; j++) {
+      const dx = particles[i].x - particles[j].x;
+      const dy = particles[i].y - particles[j].y;
+      const d = Math.sqrt(dx*dx + dy*dy);
+      if (d < 180) {
+        ctx.beginPath();
+        ctx.strokeStyle = `rgba(99,102,241,${(1 - d/180) * 0.15})`;
+        ctx.lineWidth = 0.5;
+        ctx.moveTo(particles[i].x, particles[i].y);
+        ctx.lineTo(particles[j].x, particles[j].y);
+        ctx.stroke();
+      }
+    }
+  }
+
+  // Draw particles
+  particles.forEach(p => {
+    p.x += p.vx; p.y += p.vy;
+    if (p.x < -200) p.x = W + 100;
+    if (p.x > W + 200) p.x = -100;
+    if (p.y < -100) p.y = H + 100;
+    if (p.y > H + 100) p.y = -100;
+
+    const pulse = 0.5 + 0.5 * Math.sin(t * 2 + p.phase);
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.r * (0.8 + 0.4 * pulse), 0, Math.PI * 2);
+    ctx.fillStyle = p.col;
+    ctx.globalAlpha = 0.4 + 0.3 * pulse;
+    ctx.fill();
+    ctx.globalAlpha = 1;
+  });
+
+  requestAnimationFrame(draw);
+}
+draw();
+</script>
+</body>
+</html>

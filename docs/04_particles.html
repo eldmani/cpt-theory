@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Particles as Stable Loops — CPT Explorer</title>
+<link rel="stylesheet" href="shared.css">
+<style>
+  canvas.loop-canvas { border-radius: 12px; background: rgba(0,0,0,0.4); display: block; margin: 0 auto; }
+  .particle-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 20px 0; }
+  .particle-card { background: rgba(15,23,42,0.8); border-radius: 14px; padding: 20px; text-align: center; border: 1px solid rgba(99,102,241,0.15); transition: border-color 0.2s; cursor: pointer; }
+  .particle-card:hover { border-color: rgba(99,102,241,0.4); }
+  .particle-card .icon { font-size: 2rem; margin-bottom: 10px; }
+  .particle-card h3 { font-size: 0.95rem; color: #c7d2fe; margin-bottom: 6px; }
+  .particle-card .sub { font-size: 0.8rem; color: #64748b; }
+  .particle-card .badge-row { margin-top: 10px; }
+  .orbit-compare { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin: 20px 0; }
+  .orbit-card { background: rgba(15,23,42,0.7); border-radius: 12px; padding: 16px; text-align: center; border: 1px solid rgba(99,102,241,0.12); }
+  .orbit-card h4 { font-size: 0.85rem; color: #818cf8; margin-bottom: 8px; }
+  .orbit-card p { font-size: 0.8rem; color: #64748b; line-height: 1.5; margin: 0; }
+  @media (max-width: 600px) { .particle-grid { grid-template-columns: 1fr 1fr; } .orbit-compare { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="page-container">
+  <nav class="breadcrumb"><a href="index.html">← Home</a> / Chapter 4</nav>
+  <h1 class="page-title">🔄 Particles Are Stable Loops</h1>
+  <p class="page-subtitle">Particles aren't tiny billiard balls. In CPT, they are stable periodic orbits — patterns that the configuration v keeps returning to, forever.</p>
+
+  <section>
+    <h2>The Fixed-Point Equation</h2>
+    <p>Remember the core equation of CPT:</p>
+
+    <div class="eli15">
+      <div class="eli15-header">🎯 Simple version — what is a particle?</div>
+      <p>Drop a pebble in a pond. The ripples spread out and fade — the disturbance disappears. Now imagine a pool with a special geometry where the ripple bounces back and <strong>reinforces itself</strong>, over and over, never fading. That's a stable orbit — and in CPT, that's a particle. An electron isn't a tiny marble sitting somewhere. It's a self-reinforcing pattern of information that keeps recreating itself every cycle.</p>
+      <p><strong>Most patterns fade away. Only a special few survive forever — those are the particles we see.</strong></p>
+    </div>
+    <div class="math-block">
+      v₀ = T̂ · Ĉ(v₀)
+      <small>A state v₀ is "stable" if, after one complete propagation cycle (Ĉ, then T̂), you return to exactly v₀</small>
+    </div>
+    <p>This is called a <strong>fixed point</strong>. The universe's ground state is one giant fixed point. But there are also smaller fixed points — local patterns that are self-consistent. These are particles.</p>
+
+    <canvas class="loop-canvas" id="fixedpt" width="660" height="280"></canvas>
+    <p style="text-align:center;color:#64748b;font-size:0.82rem;margin-top:8px">Watch how the propagation transforms a state. Most states drift away (unstable). A few states — the fixed points — return to themselves. These are the particles.</p>
+  </section>
+
+  <section>
+    <h2>Period-3 Orbits: Why 3 Colors</h2>
+    <p>Not all stable loops are the same period. A period-1 orbit returns after one step. A period-3 orbit visits <em>three distinct states</em> before returning. CPT identifies these with the three color charges of quarks.</p>
+
+    <div class="eli15">
+      <div class="eli15-header">🎯 Simple version — period-3 and color charge</div>
+      <p>Think of a traffic light: <strong>Red → Green → Yellow → Red → ...</strong> It cycles through exactly 3 states before returning to the start. That's a period-3 orbit. Quarks are like traffic lights — they cycle through 3 internal states (we call them Red, Green, Blue color charge). They can never be caught in just one state for long — always cycling. That's why quarks can never be isolated: you'd need to "freeze" the traffic light, which is impossible.</p>
+    </div>
+
+    <div class="orbit-compare">
+      <div class="orbit-card">
+        <h4>Period 1: Leptons</h4>
+        <p>Return to same state after 1 step. No color charge. Examples: electron, muon, tau, neutrinos.</p>
+        <canvas id="orbit1" width="140" height="140" style="margin-top:12px"></canvas>
+      </div>
+      <div class="orbit-card">
+        <h4>Period 2: Gauge Bosons</h4>
+        <p>Visit 2 states alternately. Spin-1 structure. Examples: photon (U(1)), W/Z (SU(2)).</p>
+        <canvas id="orbit2" width="140" height="140" style="margin-top:12px"></canvas>
+      </div>
+      <div class="orbit-card">
+        <h4>Period 3: Quarks</h4>
+        <p>Visit 3 states in sequence. Exactly 3 color charges (R, G, B). The Z₃ orbit structure IS color charge.</p>
+        <canvas id="orbit3" width="140" height="140" style="margin-top:12px"></canvas>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <strong>The key insight:</strong> The period-3 orbit in the complex propagator has a Z₃ symmetry — rotating by 120° maps the orbit to itself. This Z₃ symmetry is exactly the color symmetry group of QCD. It's not assumed — it's forced by the period-3 structure.
+    </div>
+  </section>
+
+  <section>
+    <h2>The Standard Model Particles as Orbits</h2>
+    <div class="particle-grid">
+      <div class="particle-card">
+        <div class="icon">⚡</div>
+        <h3>Electron</h3>
+        <div class="sub">Period-1 orbit, U(1) charge</div>
+        <div class="badge-row"><span class="badge badge-derived">∂ Derived</span></div>
+      </div>
+      <div class="particle-card">
+        <div class="icon">🔵</div>
+        <h3>Quarks (u, d, s, c, b, t)</h3>
+        <div class="sub">Period-3 orbits, color charge</div>
+        <div class="badge-row"><span class="badge badge-derived">∂ Derived</span></div>
+      </div>
+      <div class="particle-card">
+        <div class="icon">💫</div>
+        <h3>Photon (γ)</h3>
+        <div class="sub">Period-2, massless, spin 1</div>
+        <div class="badge-row"><span class="badge badge-derived">∂ Derived</span></div>
+      </div>
+      <div class="particle-card">
+        <div class="icon">🌀</div>
+        <h3>Gluons (8 types)</h3>
+        <div class="sub">Period-3 adjoint orbits, carry color</div>
+        <div class="badge-row"><span class="badge badge-conjecture">~ Conjecture</span></div>
+      </div>
+      <div class="particle-card">
+        <div class="icon">🔷</div>
+        <h3>Higgs Boson</h3>
+        <div class="sub">Period-1 scalar, breaks symmetry</div>
+        <div class="badge-row"><span class="badge badge-conjecture">~ Conjecture</span></div>
+      </div>
+      <div class="particle-card">
+        <div class="icon">👻</div>
+        <h3>Neutrinos</h3>
+        <div class="sub">Period-1, neutral, nearly massless</div>
+        <div class="badge-row"><span class="badge badge-prediction">→ Prediction</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Why SU(3): Cartan's Classification</h2>
+    <p>The three color charges form a symmetry group — but which one? CPT derives this from the Cartan classification of Lie groups.</p>
+
+    <div class="math-block">
+      Period-3 orbit → center Z₃ (the symmetry that rotates 3 states)
+      <br>
+      Cartan: Only two simple Lie groups have center Z₃: SU(3) and E₆
+      <br>
+      SU(3) has fundamental representation dim = 3
+      <br>
+      E₆ has fundamental representation dim = 27
+      <br><br>
+      The orbit has 3 states → fundamental rep must have dim = 3 → SU(3) ✓
+      <small>E₆ is excluded because you'd need a 27-dimensional fundamental rep — but we only have 3 color states</small>
+    </div>
+
+    <canvas class="loop-canvas" id="su3" width="660" height="260"></canvas>
+    <p style="text-align:center;color:#64748b;font-size:0.82rem;margin-top:8px">The 8 gluons live in the adjoint representation of SU(3) — the 8-dimensional space of "symmetry generators." Three quarks form the fundamental triplet (R, G, B). The geometry is completely determined by having exactly 3 color states.</p>
+  </section>
+
+  <section>
+    <h2>Particles and Antiparticles</h2>
+    <p>In CPT, an antiparticle is simply the same orbit traversed in the <em>reverse direction</em>. Since t() is bijective (two-way), you can run the orbit forwards (particle) or backwards (antiparticle). They annihilate because running forward and backward together is the same as not moving — returning to the fixed point v₀.</p>
+
+    <canvas class="loop-canvas" id="annihilation" width="660" height="200"></canvas>
+    <p style="text-align:center;color:#64748b;font-size:0.82rem;margin-top:8px">Left: particle orbit (clockwise). Right: antiparticle (counterclockwise). Together: they cancel — annihilation is just orbit + anti-orbit = no orbit.</p>
+  </section>
+
+  <div class="nav-footer">
+    <a href="03_quantum.html" class="nav-btn secondary">← Quantum Mechanics</a>
+    <a href="05_generations.html" class="nav-btn primary">Next: Why 3 Generations →</a>
+  </div>
+</div>
+
+<script>
+// Fixed-point visualization
+const fc = document.getElementById('fixedpt').getContext('2d');
+const FW = 660, FH = 280;
+
+function drawFixed() {
+  fc.clearRect(0, 0, FW, FH);
+  const t = Date.now() / 1000;
+
+  // Show phase space with several trajectories
+  const cx = FW/2, cy = FH/2;
+
+  // Stable fixed point (center)
+  fc.beginPath(); fc.arc(cx, cy, 12, 0, Math.PI*2);
+  fc.fillStyle = 'rgba(52,211,153,0.2)'; fc.fill();
+  fc.strokeStyle = '#34d399'; fc.lineWidth = 2; fc.stroke();
+  fc.fillStyle = '#34d399'; fc.font = 'bold 11px system-ui'; fc.textAlign = 'center';
+  fc.fillText('v₀', cx, cy+4);
+  fc.fillText('(stable particle)', cx, cy+28);
+
+  // Spiral trajectories converging to fixed point
+  [
+    {r0: 120, color: '#60a5fa', phase: 0},
+    {r0: 90, color: '#a78bfa', phase: 2},
+    {r0: 150, color: '#f472b6', phase: 4},
+  ].forEach(({r0, color, phase}) => {
+    fc.beginPath();
+    for (let s = 0; s < 60; s++) {
+      const frac = s / 60;
+      const r = r0 * (1 - frac * 0.8);
+      const angle = phase + frac * Math.PI * 4 + t * 0.5;
+      const x = cx + r * Math.cos(angle);
+      const y = cy + r * Math.sin(angle);
+      if (s === 0) fc.moveTo(x, y); else fc.lineTo(x, y);
+    }
+    fc.strokeStyle = color + '88'; fc.lineWidth = 1.5; fc.stroke();
+    // Current position
+    const frac0 = (t * 0.3) % 1;
+    const r = r0 * (1 - frac0 * 0.8);
+    const angle = phase + frac0 * Math.PI * 4 + t * 0.5;
+    fc.beginPath(); fc.arc(cx + r*Math.cos(angle), cy + r*Math.sin(angle), 5, 0, Math.PI*2);
+    fc.fillStyle = color; fc.fill();
+  });
+
+  // Unstable point on the right
+  const ux = cx + 200, uy = cy - 40;
+  fc.beginPath(); fc.arc(ux, uy, 10, 0, Math.PI*2);
+  fc.fillStyle = 'rgba(248,113,113,0.2)'; fc.fill();
+  fc.strokeStyle = '#f87171'; fc.lineWidth = 1.5; fc.setLineDash([4,3]); fc.stroke();
+  fc.setLineDash([]);
+  fc.fillStyle = '#f87171'; fc.font = '11px system-ui'; fc.textAlign = 'center';
+  fc.fillText('unstable state', ux, uy+28);
+  fc.fillText('(no particle)', ux, uy+42);
+
+  fc.textAlign = 'left';
+  requestAnimationFrame(drawFixed);
+}
+drawFixed();
+
+// Period-n orbit canvases
+function drawOrbit(canvasId, n, color) {
+  const c = document.getElementById(canvasId).getContext('2d');
+  const W = 140, H = 140;
+  const cx = W/2, cy = H/2, R = 48;
+
+  function frame() {
+    c.clearRect(0, 0, W, H);
+    const t = Date.now() / 1000;
+
+    // Circle track
+    c.beginPath(); c.arc(cx, cy, R, 0, Math.PI*2);
+    c.strokeStyle = 'rgba(99,102,241,0.15)'; c.lineWidth = 1; c.stroke();
+
+    // Orbit points
+    for (let k = 0; k < n; k++) {
+      const angle = 2*Math.PI*k/n - Math.PI/2;
+      const x = cx + R * Math.cos(angle), y = cy + R * Math.sin(angle);
+      c.beginPath(); c.arc(x, y, 7, 0, Math.PI*2);
+      c.fillStyle = k === 0 ? color : color + '77'; c.fill();
+    }
+
+    // Moving particle
+    const i = Math.floor(t * n * 0.6) % n;
+    const nextI = (i+1) % n;
+    const frac = (t * n * 0.6) % 1;
+    const a1 = 2*Math.PI*i/n - Math.PI/2, a2 = 2*Math.PI*nextI/n - Math.PI/2;
+    let dAngle = a2 - a1;
+    if (dAngle > Math.PI) dAngle -= 2*Math.PI;
+    if (dAngle < -Math.PI) dAngle += 2*Math.PI;
+    const a = a1 + dAngle * frac;
+    c.beginPath(); c.arc(cx + R*Math.cos(a), cy + R*Math.sin(a), 10, 0, Math.PI*2);
+    c.fillStyle = color; c.fill();
+    c.strokeStyle = '#fff'; c.lineWidth = 1.5; c.stroke();
+
+    // Period label
+    c.fillStyle = color; c.font = 'bold 11px system-ui'; c.textAlign = 'center';
+    c.fillText(`period ${n}`, cx, H-8);
+    c.textAlign = 'left';
+
+    requestAnimationFrame(frame);
+  }
+  frame();
+}
+drawOrbit('orbit1', 1, '#60a5fa');
+drawOrbit('orbit2', 2, '#a78bfa');
+drawOrbit('orbit3', 3, '#34d399');
+
+// SU(3) visualization
+const sc = document.getElementById('su3').getContext('2d');
+const SW = 660, SH = 260;
+
+function drawSU3() {
+  sc.clearRect(0, 0, SW, SH);
+  const t = Date.now() / 1000;
+  const cx = SW/2, cy = SH/2;
+  const R = 80;
+
+  // Three quarks
+  const colors3 = ['#ef4444', '#22c55e', '#3b82f6'];
+  const names3 = ['R', 'G', 'B'];
+  const angles3 = [0,1,2].map(k => -Math.PI/2 + 2*Math.PI*k/3);
+
+  // Gluon connections (8 = 3²-1)
+  for (let i = 0; i < 3; i++) {
+    for (let j = 0; j < 3; j++) {
+      if (i !== j) {
+        const x1 = cx + R * Math.cos(angles3[i]);
+        const y1 = cy + R * Math.sin(angles3[i]);
+        const x2 = cx + R * Math.cos(angles3[j]);
+        const y2 = cy + R * Math.sin(angles3[j]);
+        const phase = t * 2 + i * 2 + j;
+        const midX = (x1+x2)/2 + 20*Math.sin(phase);
+        const midY = (y1+y2)/2 + 20*Math.cos(phase);
+        sc.beginPath();
+        sc.moveTo(x1, y1); sc.quadraticCurveTo(midX, midY, x2, y2);
+        sc.strokeStyle = `hsl(${240 + i*30 + j*60}, 70%, 60%)`;
+        sc.lineWidth = 1.5; sc.globalAlpha = 0.4; sc.stroke();
+        sc.globalAlpha = 1;
+      }
+    }
+  }
+
+  // Quark nodes
+  angles3.forEach((a, i) => {
+    const x = cx + R * Math.cos(a), y = cy + R * Math.sin(a);
+    // Orbit circle
+    for (let r = 15; r < 45; r += 12) {
+      const ph = t * 2 * (i+1) + r;
+      sc.beginPath(); sc.arc(x, y, r, ph, ph + Math.PI*1.5);
+      sc.strokeStyle = colors3[i] + '44'; sc.lineWidth = 1; sc.stroke();
+    }
+    sc.beginPath(); sc.arc(x, y, 20, 0, Math.PI*2);
+    sc.fillStyle = colors3[i] + '33'; sc.fill();
+    sc.strokeStyle = colors3[i]; sc.lineWidth = 2; sc.stroke();
+    sc.fillStyle = colors3[i]; sc.font = 'bold 14px system-ui'; sc.textAlign = 'center';
+    sc.fillText(names3[i], x, y+5);
+    sc.fillStyle = '#64748b'; sc.font = '10px system-ui';
+    sc.fillText('quark', x, y+34);
+  });
+
+  // Center label: SU(3)
+  sc.fillStyle = 'rgba(15,23,42,0.8)'; sc.beginPath(); sc.arc(cx, cy, 35, 0, Math.PI*2); sc.fill();
+  sc.strokeStyle = 'rgba(99,102,241,0.3)'; sc.lineWidth = 1; sc.stroke();
+  sc.fillStyle = '#818cf8'; sc.font = 'bold 13px system-ui'; sc.textAlign = 'center';
+  sc.fillText('SU(3)', cx, cy - 2);
+  sc.fillStyle = '#475569'; sc.font = '10px system-ui';
+  sc.fillText('8 gluons', cx, cy + 14);
+
+  // Z₃ label
+  sc.fillStyle = '#34d399'; sc.font = 'bold 12px system-ui';
+  sc.fillText('Z₃ symmetry: rotate 120° → same orbit', cx, SH - 12);
+  sc.textAlign = 'left';
+
+  requestAnimationFrame(drawSU3);
+}
+drawSU3();
+
+// Annihilation canvas
+const ac = document.getElementById('annihilation').getContext('2d');
+const AW = 660, AH = 200;
+
+function drawAnnihilation() {
+  ac.clearRect(0, 0, AW, AH);
+  const t = Date.now() / 1000;
+
+  const panels = [{cx: AW/6, label: 'Particle\n(forward orbit)', color: '#60a5fa', dir: 1},
+                  {cx: AW/2, label: 'Antiparticle\n(reverse orbit)', color: '#f87171', dir: -1},
+                  {cx: 5*AW/6, label: 'Annihilation\n(photon γ)', color: '#fbbf24', dir: 0}];
+
+  panels.forEach(({cx, label, color, dir}) => {
+    const cy = AH/2;
+    if (dir !== 0) {
+      const R = 55;
+      ac.beginPath(); ac.arc(cx, cy, R, 0, Math.PI*2);
+      ac.strokeStyle = 'rgba(99,102,241,0.1)'; ac.lineWidth = 1; ac.stroke();
+      // Draw 3 orbit points
+      for (let k = 0; k < 3; k++) {
+        const angle = -Math.PI/2 + 2*Math.PI*k/3 + dir*t;
+        const x = cx + R*Math.cos(angle), y = cy + R*Math.sin(angle);
+        ac.beginPath(); ac.arc(x, y, 8, 0, Math.PI*2);
+        ac.fillStyle = color + (k===0?'':'66'); ac.fill();
+      }
+      // Arrow indicating direction
+      const aAngle = dir*t;
+      ac.beginPath();
+      ac.arc(cx, cy, R+12, aAngle, aAngle + dir*0.6);
+      ac.strokeStyle = color; ac.lineWidth = 2;
+      const arrowX = cx + (R+12)*Math.cos(aAngle + dir*0.6);
+      const arrowY = cy + (R+12)*Math.sin(aAngle + dir*0.6);
+      ac.stroke();
+    } else {
+      // Photon burst
+      for (let k = 0; k < 8; k++) {
+        const angle = t*3 + k*Math.PI/4;
+        const len = 30 + 10*Math.sin(t*5 + k);
+        ac.beginPath(); ac.moveTo(cx, cy);
+        ac.lineTo(cx + len*Math.cos(angle), cy + len*Math.sin(angle));
+        ac.strokeStyle = color; ac.lineWidth = 2.5; ac.stroke();
+      }
+      ac.beginPath(); ac.arc(cx, cy, 8, 0, Math.PI*2);
+      ac.fillStyle = color; ac.fill();
+    }
+    ac.fillStyle = '#94a3b8'; ac.font = '11px system-ui'; ac.textAlign = 'center';
+    const lines = label.split('\n');
+    lines.forEach((l, i) => ac.fillText(l, cx, AH - 32 + i*16));
+  });
+
+  // Plus and equals signs
+  ac.fillStyle = '#475569'; ac.font = 'bold 24px system-ui'; ac.textAlign = 'center';
+  ac.fillText('+', AW/3, AH/2 + 8);
+  ac.fillText('=', 2*AW/3, AH/2 + 8);
+  ac.textAlign = 'left';
+
+  requestAnimationFrame(drawAnnihilation);
+}
+drawAnnihilation();
+</script>
+</body>
+</html>
